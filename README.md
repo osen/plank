@@ -42,3 +42,15 @@ After including the library or integrating Plank with your project, use the **pa
 
 When this program is run, the first allocation will show some output in the console so you know Plank is being used. When the application exits, a memory overview will be output to the console so you can see any memory you have forgotten to free (with **palloc(ptr)**).
 
+*An example output can be seen below:*
+
+    [plank]Statistics
+      Allocations: 1
+      Allocated Size: 4
+      Total Allocations: 1
+      Total Size: 4
+      Unmanaged Deletions: 0
+    [plank]Leak
+      Type: struct Employee
+      Size: 4
+

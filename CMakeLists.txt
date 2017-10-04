@@ -26,5 +26,8 @@ target_link_libraries(ctest2 plank)
 add_executable(ctest3 src/ctests/test3.c)
 target_link_libraries(ctest3 plank)
 
+add_executable(ctest4 src/ctests/test4.c)
+target_link_libraries(ctest4 plank)
+
 add_executable(cxxtest1 src/cxxtests/test1.cpp)
 target_link_libraries(cxxtest1 plankmm)

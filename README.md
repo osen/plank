@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/osen/plank/master/docs/logo.png" width="250" />
+
 # Plank #
 ## Memory instrumentation library ##
 Plank is a library designed to expose heap related memory errors. It works by marking memory as forbidden rather than freeing it. This means that if a read or write attempt is made, the kernel produces a SIGSEGV signal.
@@ -42,7 +44,7 @@ After including the library or integrating Plank with your project, use the **pa
 
 When this program is run, the first allocation will show some output in the console so you know Plank is being used. When the application exits, a memory overview will be output to the console so you can see any memory you have forgotten to free (with **palloc(ptr)**).
 
-*An example output can be seen below:*
+*An example output containing a leak can be seen below:*
 
     [plank]Statistics
       Allocations: 1

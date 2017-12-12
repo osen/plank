@@ -157,6 +157,17 @@ char sstream_at(struct sstream *ctx, size_t i)
   return ctx->data[i];
 }
 
+void sstream_set(struct sstream *ctx, size_t i, char c)
+{
+  if(i >= ctx->len)
+  {
+    printf("Error: Index out of bounds\n");
+    abort();
+  }
+
+  ctx->data[i] = c;
+}
+
 void sstream_push_chars(struct sstream *ctx, char *values, size_t count)
 {
   char *tmp = NULL;

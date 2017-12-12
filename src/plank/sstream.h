@@ -33,6 +33,7 @@ void sstream_push_char(struct sstream *ctx, char val);
 void sstream_push_chars(struct sstream *ctx, char *values, size_t count);
 
 char sstream_at(struct sstream *ctx, size_t i);
+void sstream_set(struct sstream *ctx, size_t i, char c);
 char *sstream_cstr(struct sstream *ctx);
 int sstream_int(struct sstream *ctx);
 

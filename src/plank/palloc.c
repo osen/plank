@@ -183,3 +183,8 @@ void *_palloc(size_t size, const char *type)
   return rtn;
 }
 #endif
+
+void *palloc_malloc(size_t size)
+{
+  return _palloc(size, "native");
+}

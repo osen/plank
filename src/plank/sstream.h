@@ -20,6 +20,7 @@ struct sstream
 typedef struct sstream sstream;
 
 struct sstream *sstream_new();
+struct sstream *sstream_copy(struct sstream *ctx);
 void sstream_delete(struct sstream *ctx);
 
 void sstream_clear(struct sstream *ctx);

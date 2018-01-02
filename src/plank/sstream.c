@@ -6,9 +6,6 @@
 #include <string.h>
 #include <stdio.h>
 
-//#define PALLOC_CHUNK 1
-
-
 size_t _sstream_next_po2(size_t len)
 {
   size_t curr = 2;
@@ -72,6 +69,16 @@ struct sstream *sstream_new()
   return rtn;
 }
 
+struct sstream *sstream_copy(struct sstream *ctx)
+{
+  struct sstream *rtn = NULL;
+
+  rtn = sstream_new();
+  sstream_push_cstr(rtn, sstream_cstr(ctx));
+
+  return rtn;
+}
+
 void sstream_clear(struct sstream *ctx)
 {
   ctx->data[0] = '\0';
@@ -126,7 +133,6 @@ void sstream_push_cstr(struct sstream *ctx, const char *s)
 
   len = strlen(s);
   _sstream_ensure_space(ctx, ctx->len + len);
-  //strcat(ctx->data, s);
   memcpy(ctx->data + ctx->len, s, len + 1);
   ctx->len += len;
 }

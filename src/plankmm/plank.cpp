@@ -36,11 +36,9 @@ plankentry* entries;
 
 void plankstats()
 {
-  printf("Plank Memory Checker - Statistics\n");
-  printf("  Allocations: %i\n", (int)allocations);
-  printf("  Allocated Size: %i\n", (int)allocatedSize);
-  printf("  Total Allocations: %i\n", (int)totalAllocations);
-  printf("  Total Size: %i\n", (int)totalSize);
+  printf("[plankmm]Statistics\n");
+  printf("  Current Allocations: %i [%i Bytes]\n", (int)allocations, (int)allocatedSize);
+  printf("  Total Allocations: %i [%i Bytes]\n", (int)totalAllocations, (int)totalSize);
   printf("  Unmanaged Deletions: %i\n", (int)unmanagedDeletions);
 }
 
@@ -53,10 +51,10 @@ void* do_new(size_t size)
     firstAlloc = true;
     atexit(plankstats);
 
-    printf("Plank Memory Checker - Initialized\n");
+    printf("[plankmm]Initialized\n");
   }
 
-  if(!size) size = 1;
+  if(!size) size = 4;
 
 #ifdef _WIN32
   rtn = VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_READWRITE);
@@ -66,6 +64,7 @@ void* do_new(size_t size)
 
   if(!rtn)
   {
+    printf("[plankmm]NULL\n");
     return NULL;
   }
 
@@ -85,6 +84,11 @@ void* do_new(size_t size)
 
 void do_delete(void* ptr)
 {
+  if(!ptr)
+  {
+    return;
+  }
+
   plankentry* prev = NULL;
   plankentry* curr = entries;
   size_t size = 0;
@@ -116,6 +120,7 @@ void do_delete(void* ptr)
 
   if(!found)
   {
+    printf("[plankmm]Unmanaged deletion [%p]\n", ptr);
     unmanagedDeletions++;
     return;
   }

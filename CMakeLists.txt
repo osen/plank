@@ -37,3 +37,6 @@ target_link_libraries(cxxtest2 plankmm)
 
 add_executable(cxxtest3 src/cxxtests/test3.cpp)
 target_link_libraries(cxxtest3 plankmm)
+
+add_executable(cxxtest4 src/cxxtests/test4.cpp)
+target_link_libraries(cxxtest4 plankmm)

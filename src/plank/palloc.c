@@ -150,11 +150,15 @@ void *_palloc(size_t size, const char *type)
 #ifdef _WIN32
   entry->ptr = VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_READWRITE);
 #else
-/*
   entry->ptr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-*/
+/*
   size = getpagesize() * ((size / getpagesize()) + 1);
-  entry->ptr = calloc(1, size);
+  //entry->ptr = calloc(1, size);
+  if(posix_memalign(&entry->ptr, getpagesize(), size) != 0)
+  {
+    entry->ptr = NULL;
+  }
+*/
 #endif
 
   if(!entry->ptr)

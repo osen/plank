@@ -147,6 +147,8 @@ void *_palloc(size_t size, const char *type)
     return NULL;
   }
 
+  if(!size) size = 4;
+
 #ifdef _WIN32
   entry->ptr = VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_READWRITE);
 #else
@@ -155,6 +157,7 @@ void *_palloc(size_t size, const char *type)
   size = getpagesize() * ((size / getpagesize()) + 1);
   //entry->ptr = calloc(1, size);
   if(posix_memalign(&entry->ptr, getpagesize(), size) != 0)
+  //if(posix_memalign(&entry->ptr, getpagesize(), getpagesize() * size) != 0)
   {
     entry->ptr = NULL;
   }
@@ -165,6 +168,7 @@ void *_palloc(size_t size, const char *type)
   {
     free(entry->type);
     free(entry);
+    printf("[NULL]\n");
     return NULL;
   }
 

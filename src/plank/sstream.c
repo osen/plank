@@ -50,6 +50,7 @@ void _sstream_ensure_space(struct sstream *ctx, size_t required)
 
     if(!ctx->data)
     {
+      printf("[plank]Failed to allocate %i bytes of space\n", (int)npo2);
       abort();
     }
   }
@@ -107,6 +108,8 @@ void sstream_push_float(struct sstream *ctx, float val)
 {
   char buffer[128] = {0};
 
+  // TODO
+  //sprintf(buffer, "%.4f", val);
   sprintf(buffer, "%f", val);
   sstream_push_cstr(ctx, buffer);
 }
@@ -176,15 +179,10 @@ void sstream_set(struct sstream *ctx, size_t i, char c)
 
 void sstream_push_chars(struct sstream *ctx, char *values, size_t count)
 {
-  char *tmp = NULL;
-
-  tmp = (char *)malloc(sizeof(char) * (count + 1));
-  tmp[count] = 0;
-  memcpy(tmp, values, sizeof(char) * count);
-  sstream_push_cstr(ctx, tmp);
-  /* TODO: Allocate size and use memcpy */
-
-  free(tmp);
+  _sstream_ensure_space(ctx, ctx->len + count);
+  memcpy(ctx->data + ctx->len, values, count);
+  ctx->len += count;
+  ctx->data[ctx->len] = '\0';
 }
 
 /*
